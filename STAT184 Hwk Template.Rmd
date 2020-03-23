@@ -1,14 +1,13 @@
 ---
 title: "STAT 184 Homework Exercises" 
-subtitle: "DataComputing Chapters 1 & 2"
-author: "Your Name"
+subtitle: "DataComputing Chapters 12"
+author: "Eric weah "
 output: html_notebook
 ---
 
 ## Assigned Exercises
 
-- DC Chapter 1 Exercises: 1.1, 1.2, 1.3, 1.4, 1.5  
-- DC Chapter 2 Exercises: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.8, 2.9
+- DC Chapter 12 Exercises: 12.1,12.2,12.3,12.4
 
 ## Front Matter
 
@@ -19,24 +18,69 @@ rm(list = ls())
 # all packages used for the assignment
 library(mosaic)
 library(tidyverse)
+library(DataComputing)
 
 ```
 
 
 
-## Chapter 1 Exercises
+## Chapter 12 Exercises
 
-### Problem 1.1
+### Problem 12.1
+
+a.)  BothSexes
+```{r}
+BothSexes <-
+  BabyNames %>% 
+  spread(key = sex, value = count)%>%
+  filter(F>1,M>1)
+ 
+```
 
 
-### Problem 1.2
 
-[and so forth...]
+b.)
+```{r}
+BothSexes %>%
+  group_by(name)%>%
+  mutate(genderBalance=abs(log(F/M)))%>%
+  arrange(genderBalance)
+```
 
+c.)
+```{r}
+BothSexes %>%
+  group_by(name)%>%
+  mutate(genderBalance=abs(log(F/M)))%>%
+  arrange(genderBalance)
+```
 
-## Chapter 2 Exercises
+### Problem 12.2
+a.) version 1:  each case shows the popular baby name of a given year both female and male. also the total number of babies they had that year whihc helps shows the popularity.
+version 2: each case represents  the count of both sexes, and seems to be in wide form
+version 3: each case shows the year 1912 and 2012 and how many babies were born for both years.
+b.) The command for version 2 is wider and  would look like
+ spread(key=sex,value=nbabies).
+  the spread function is used and the varibale sex is seperated in male and female for thier own columns.
+c.) the cammand for version 1 is wider and would look like 
+gather(key=year,value=count,"1912","2012").
+the gather function is used and the years are condensed  to make year and count .
+ 
+d.) version 3 because the years are their own columns .
+e.) you can start using data verbs but it would be better to translate the table to version 2 because it will be easier to wrangle.
+### Problem 12.3
+a.) A versus C : A would be considered wide
+    B versus C : B would be considered wide
+    A versus B:  they are both considered wide
+b.) data fram B
+c.) data fram A 
+### Problem 12.4
+a.)  the subject column may be be collapsed down and make the table too narrow
 
-### Problem 2.1
+b.) 
+```{r}
+BP_narrow %>%
+  gather(key = when, value = sbp, before, after)
+```
 
-[and so forth...]
-
+you can take out any one of the variables in the code, for example if i took out subject.
